@@ -1,0 +1,2 @@
+class OutputController:
+  pass
