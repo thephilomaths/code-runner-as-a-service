@@ -1,15 +1,19 @@
 import os
 
 from flask import Flask
-from . import setup
 
-from .config.routes import routes
-
+from app.config.routes import routes
+from app import setup
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_ENDPOINT']
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql+psycopg2://{os.environ['DATABASE_USERNAME']}:" + \
+                                        f"{os.environ['DATABASE_PASSWORD']}@{os.environ['DATABASE_HOST']}/" + \
+                                        f"{os.environ['DATABASE_NAME']}"
+app.config['SQLALCHEMY_ECHO'] = True
 
 app.register_blueprint(routes)
 
-if __name__ == "__main__":
-  app.run("0.0.0.0", 5000, debug=True, threaded=True)
+
+@app.route('/', methods=['GET'])
+def handler():
+    return 'HELLo'

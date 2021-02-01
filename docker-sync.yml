@@ -1,0 +1,21 @@
+version: "2"
+options:
+  verbose: true
+  perms: 0
+syncs:
+  code-runner-sync:
+    src: "."
+    sync_strategy: "native_osx"
+    sync_excludes:
+      [
+        ".git",
+        "*.log",
+        ".idea",
+        "env",
+        "__pycache__",
+        "*/__pycache__",
+        "*/*/__pycache__",
+        "*/*/*/__pycache__",
+        "*/*/*/*/__pycache__",
+        "*/*/*/*/*/__pycache__",
+      ]
