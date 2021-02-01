@@ -19,11 +19,6 @@ services:
     ports:
       - 5672:5672
       - 5671:5671
-    command: >
-      bash -c "sleep 60 &&
-      rabbitmqctl add_user code_runner yeeyeeasshaircut &&
-      rabbitmqctl set_user_tags code_runner administrator &&
-      rabbitmqctl set_permissions -p / code_runner ".*" ".*" ".*""
 
   code_runner: &code_runner
     build: .
