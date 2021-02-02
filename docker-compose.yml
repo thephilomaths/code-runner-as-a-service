@@ -43,8 +43,7 @@ services:
 
   code-runner-workers:
     <<: *code_runner
-    command:
-      - celery -A app.workers flower --loglevel=DEBUG
+    command: celery -A app.workers worker --loglevel=DEBUG
     expose:
       - 5555
     ports:
