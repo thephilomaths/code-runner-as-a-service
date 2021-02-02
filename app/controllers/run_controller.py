@@ -2,7 +2,7 @@ import json
 from typing import Union
 from app.controllers.api_controller import ApiController
 from app.workers import tasks
-from celery.exceptions import TimeLimitExceeded
+from celery.exceptions import TimeLimitExceeded, TimeoutError
 
 
 class RunController(ApiController):
@@ -28,10 +28,11 @@ class RunController(ApiController):
         }
 
         try:
-            result = tasks.run_code.apply_async(args=[json.dumps(worker_args)])
+            result = tasks.run_code.apply_async(args=[json.dumps(worker_args)], time_limit=time_limit+2)
+            print(result.backend)
             res_data = {
-                'result': result.get()
+                'result': result.get(timeout=time_limit+10)
             }
             return self.response_data(data=res_data)
-        except TimeLimitExceeded:
+        except (TimeLimitExceeded, TimeoutError):
             return 'Time Limit Exceeded'
