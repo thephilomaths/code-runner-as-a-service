@@ -7,16 +7,16 @@ networks:
 
 services:
   rabbit-mq:
-    image: rabbitmq:3.8.11
+    build:
+      context: .
+      dockerfile: rabbitmq.Dockerfile
     networks:
       - default
     volumes:
       - code-runner-rabbitmq:/var/lib/rabbitmq
     container_name: rabbit-mq
-    expose:
-      - "5672"
-      - "5671"
     ports:
+      - 15672:15672
       - 5672:5672
       - 5671:5671
 
@@ -29,6 +29,9 @@ services:
     tty: true
     volumes:
       - code-runner-sync:/code_runner:nocopy
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - /usr/local/bin/docker-compose:/usr/local/bin/docker-compose
     ports:
       - 5000:5000
     depends_on:
@@ -40,9 +43,7 @@ services:
 
   code-runner-workers:
     <<: *code_runner
-    command: celery worker --loglevel=INFO
-    environment:
-      - BROKER_URL=amqp://code_runner:yeeyeeasshaircut@172.17.0.1:5672
+    command: celery -A app.workers worker --loglevel=DEBUG
     ports: []
     networks:
       - default

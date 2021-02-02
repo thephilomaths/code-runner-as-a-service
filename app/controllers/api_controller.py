@@ -10,7 +10,7 @@ class ApiController:
             'data': data
         }
 
-        return Response(response=response, status=200)
+        return Response(response=json.dumps(response), status=200)
 
     @staticmethod
     def error_response(status_code: int, error_message: str) -> Response:

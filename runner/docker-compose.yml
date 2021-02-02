@@ -1,0 +1,28 @@
+version: "3"
+
+networks:
+  default:
+    external:
+      name: code_runner_net
+
+services:
+  python-runner:
+    image: python-runner-image
+    build:
+      context: .
+      dockerfile: python.Dockerfile
+    volumes:
+      - code-runner-sync:/code_runner:nocopy
+    networks:
+      - default
+    container_name: python-runner
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+
+volumes:
+  code-runner-sync:
+    external: true

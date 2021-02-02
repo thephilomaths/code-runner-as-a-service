@@ -1,5 +1,8 @@
+import json
 from typing import Union
 from app.controllers.api_controller import ApiController
+from app.workers import tasks
+from celery.exceptions import TimeLimitExceeded
 
 
 class RunController(ApiController):
@@ -11,9 +14,24 @@ class RunController(ApiController):
 
         language = data.get('language')
         code = data.get('code')
-        test_case = data.get('test_case')
+        code_input = data.get('code_input')
+        time_limit = data.get('time_limit') or 1
 
-        if language is None or code is None or test_case is None:
+        if language is None or code is None or code_input is None:
             return self.error_response(status_code=422, error_message='Unprocessable entity')
 
-        # TODO: Call the celery worker
+        worker_args = {
+            'language': language,
+            'code': code,
+            'code_input': code_input,
+            'time_limit': time_limit
+        }
+
+        try:
+            result = tasks.run_code.apply_async(args=[json.dumps(worker_args)])
+            res_data = {
+                'result': result.get()
+            }
+            return self.response_data(data=res_data)
+        except TimeLimitExceeded:
+            return 'Time Limit Exceeded'

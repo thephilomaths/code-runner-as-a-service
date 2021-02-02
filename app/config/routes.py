@@ -1,12 +1,14 @@
-from flask import Blueprint, Response
-from ..controllers import RunController, OutputController
+from flask import Blueprint, Response, request
+from app.controllers.run_controller import RunController
 
 routes = Blueprint('route', __name__)
 
 
 @routes.route('/run', methods=['POST'])
 def run_handler():
-    return Response(response='Hello from run', status=200)
+    body = request.get_data()
+    response = RunController().run(body=body)
+    return response
 
 
 @routes.route('/get-output', methods=['GET'])

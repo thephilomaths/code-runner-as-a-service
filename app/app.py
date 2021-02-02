@@ -16,4 +16,4 @@ app.register_blueprint(routes)
 
 @app.route('/', methods=['GET'])
 def handler():
-    return 'HELLo'
+    return 'HELLO'
