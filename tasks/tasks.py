@@ -66,7 +66,7 @@ def run_code(data):
     
     sub_process = os.popen(run_cmd)
     output: str = sub_process.read()
-    # os.system(f'rm {code_path}/{input_filename} {code_path}/{code_filename}')
+    os.system(f'rm {code_path}/{input_filename} {code_path}/{code_filename}')
 
     if output.startswith('Error'):
         execution_log.error_reason = code.models.ErrorReason.syntax_or_runtime

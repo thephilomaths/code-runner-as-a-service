@@ -5,7 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from flask import Flask
 
-from code_runner.extensions import db
+from code_runner.extensions import db, limiter
 from . import code
 
 
@@ -28,6 +28,7 @@ def register_extensions(app):
     with app.app_context():
         db.init_app(app=app)
         db.create_all()
+        limiter.init_app(app=app)
 
 
 def register_environment():

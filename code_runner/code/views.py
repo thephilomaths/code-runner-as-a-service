@@ -5,6 +5,7 @@ from flask import Blueprint, request
 
 from ..utils import api
 from tasks import tasks
+from ..extensions import limiter
 
 blueprint = Blueprint('__code__', __name__)
 
@@ -46,3 +47,9 @@ def run():
         return api.response_data(data=response)
     except (TimeLimitExceeded, TimeoutError):
         return api.error_response(status_code=500, error_message='Task Timed Out')
+
+
+@blueprint.route('/', methods=['GET'])
+def root_route():
+    return "Get rid of that ol' yee yee ass haircut"
+

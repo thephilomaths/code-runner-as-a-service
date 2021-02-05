@@ -6,12 +6,14 @@ click-didyoumean==0.0.3
 click-plugins==1.1.1
 click-repl==0.1.6
 Flask==1.1.2
+Flask-Limiter==1.4
 Flask-SQLAlchemy==2.4.4
 flower==0.9.5
 humanize==3.2.0
 itsdangerous==1.1.0
 Jinja2==2.11.2
 kombu==5.0.2
+limits==1.5.1
 MarkupSafe==1.1.1
 prometheus-client==0.8.0
 prompt-toolkit==3.0.14

@@ -20,7 +20,7 @@ services:
 
   code_runner: &code_runner
     build: .
-    command: python wsgi.py
+    command: bash -c "pip install -r requirements.txt && python wsgi.py"
     stdin_open: true
     tty: true
     volumes:
