@@ -57,17 +57,16 @@ def run_code(data):
     elif language == 'java':
         execution_log.language = code.models.Language.java
         output_filename = input_filename.split('.')[0]
-        cmd = f'{shell_script_path}/java_runner.sh' \
-              f'"{time_limit * 2}s"' \
-              f'"javac"' \
-              f'"{output_filename}"' \
-              f'"{code_path}/{code_filename}"'\
-              f'"{code_path}/{input_filename}"'
+        cmd = f'{shell_script_path}/java_runner.sh ' \
+              f'"{time_limit * 2}s" ' \
+              f'"javac" '  \
+              f'"{code_path}/{code_filename}" '\
+              f'"{code_path}/{input_filename}" '
         run_cmd = f'cd runner && docker-compose run --rm java-runner {cmd}'          
     
     sub_process = os.popen(run_cmd)
     output: str = sub_process.read()
-    os.system(f'rm {code_path}/{input_filename} {code_path}/{code_filename}')
+    # os.system(f'rm {code_path}/{input_filename} {code_path}/{code_filename}')
 
     if output.startswith('Error'):
         execution_log.error_reason = code.models.ErrorReason.syntax_or_runtime
