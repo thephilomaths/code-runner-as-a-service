@@ -27,8 +27,23 @@ services:
       context: .
       dockerfile: cpp.Dockerfile
     volumes:
-    - code-runner-sync:/code_runner:nocopy
+      - code-runner-sync:/code_runner:nocopy
     container_name: cpp-runner
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  java-runner:
+    image: java-runner-image
+    build:
+      context: .
+      dockerfile: java.Dockerfile
+    volumes:
+      - code-runner-sync:/code_runner:nocopy
+    container_name: java-runner
     stdin_open: true
     tty: true
     deploy:
