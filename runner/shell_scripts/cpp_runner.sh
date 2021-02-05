@@ -2,10 +2,11 @@
 
 TIMELIMIT=$1
 COMMAND=$2
-CODE_FILENAME=$3 # This will be full file path
-INPUT_FILENAME=$4 # This will be full file path
+OUTPUT_FILENAME=$3
+CODE_FILENAME=$4 # This will be full file path
+INPUT_FILENAME=$5 # This will be full file path
 
-OUTPUT=$(timeout "$TIMELIMIT" "$COMMAND" "$CODE_FILENAME" && ./a.out < "$INPUT_FILENAME" 2>&1)
+OUTPUT=$(timeout "$TIMELIMIT" "$COMMAND" -o "$OUTPUT_FILENAME" "$CODE_FILENAME" && ./"$OUTPUT_FILENAME" < "$INPUT_FILENAME" 2>&1)
 
 EXIT_CODE=$?
 

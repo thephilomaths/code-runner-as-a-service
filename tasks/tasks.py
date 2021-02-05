@@ -32,7 +32,8 @@ def run_code(data):
     execution_log.created_at = datetime.now()
 
     print(data)
-    print(execution_log.created_at)
+    print(os.getcwd())
+    print(f'{code_path}/{code_filename}')
 
     if language == 'py':
         execution_log.language = code.models.Language.python
@@ -49,6 +50,7 @@ def run_code(data):
         cmd = f'{shell_script_path}/cpp_runner.sh ' \
               f'"{time_limit}s" ' \
               f'"g++" ' \
+              f'"{input_filename}_output" ' \
               f'"{code_path}/{code_filename}" ' \
               f'"{code_path}/{input_filename}"'
         run_cmd = f'cd runner && docker-compose run --rm cpp-runner {cmd}'
@@ -58,8 +60,8 @@ def run_code(data):
         pass
 
     sub_process = os.popen(run_cmd)
-    os.system(f'rm {code_path}/{input_filename} {code_path}/{code_filename}')
     output: str = sub_process.read()
+    os.system(f'rm {code_path}/{input_filename} {code_path}/{code_filename}')
 
     if output.startswith('Error'):
         execution_log.error_reason = code.models.ErrorReason.syntax_or_runtime

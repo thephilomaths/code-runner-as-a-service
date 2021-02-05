@@ -13,9 +13,22 @@ services:
       dockerfile: python.Dockerfile
     volumes:
       - code-runner-sync:/code_runner:nocopy
-    networks:
-      - default
     container_name: python-runner
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  cpp-runner:
+    image: cpp-runner-image
+    build:
+      context: .
+      dockerfile: cpp.Dockerfile
+    volumes:
+    - code-runner-sync:/code_runner:nocopy
+    container_name: cpp-runner
     stdin_open: true
     tty: true
     deploy:
