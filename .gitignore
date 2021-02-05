@@ -6,3 +6,4 @@ env
 */*/*/__pycache
 */*/*/*/__pycache
 */*/*/*/*/__pycache
+.unison.*
