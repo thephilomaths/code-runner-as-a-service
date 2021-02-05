@@ -4,7 +4,7 @@ ENV RABBITMQ_USER code_runner
 ENV RABBITMQ_PASSWORD yeeyeeasshaircut
 ENV RABBITMQ_PID_FILE /var/lib/rabbitmq/mnesia/rabbitmq
 
-ADD init_rabbitmq.sh /init.sh
+ADD shell_scripts/init_rabbitmq.sh /init.sh
 RUN chmod +x /init.sh
 EXPOSE 15672
 EXPOSE 5672

@@ -21,7 +21,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 256m
+          memory: 512m
 
 volumes:
   code-runner-sync:

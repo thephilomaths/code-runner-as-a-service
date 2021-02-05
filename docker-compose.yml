@@ -10,8 +10,6 @@ services:
     build:
       context: .
       dockerfile: rabbitmq.Dockerfile
-    networks:
-      - default
     volumes:
       - code-runner-rabbitmq:/var/lib/rabbitmq
     container_name: rabbit-mq
@@ -23,8 +21,6 @@ services:
   code_runner: &code_runner
     build: .
     command: python wsgi.py
-    networks:
-      - default
     stdin_open: true
     tty: true
     volumes:
@@ -41,21 +37,19 @@ services:
       - ENV=development
     container_name: code_runner
 
-  code-runner-workers:
+  code-runner-workers: &code_runner_workers
     <<: *code_runner
-    command: celery -A app.workers worker --loglevel=DEBUG
-    expose:
-      - 5555
+    command: celery -A tasks worker --loglevel=DEBUG
     ports:
-      - 5555:5555
-    networks:
-      - default
+      - 5001:5001
     depends_on:
       - rabbit-mq
     container_name: code-runner-workers
 
   db:
     image: postgres:13-alpine
+    expose:
+      - 5432
     ports:
       - 5432:5432
     volumes:
