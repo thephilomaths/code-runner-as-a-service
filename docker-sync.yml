@@ -18,5 +18,5 @@ syncs:
         "*/*/*/__pycache__",
         "*/*/*/*/__pycache__",
         "*/*/*/*/*/__pycache__",
-        "runner/codes/*"
+        "runner/codes"
       ]
