@@ -20,7 +20,7 @@ services:
 
   code_runner: &code_runner
     build: .
-    command: bash -c "pip install -r requirements.txt && python wsgi.py"
+    command: ./shell_scripts/gunicorn_starter.sh
     stdin_open: true
     tty: true
     volumes:
