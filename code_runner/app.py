@@ -10,17 +10,29 @@ from . import code
 
 
 def create_app(config_object='code_runner.settings'):
+    """Creates and returns flask app instance as well as register all the extensions and blueprints"""
     app = Flask(__name__)
     register_environment()
     app.config.from_object(config_object)
     register_blueprints(app=app)
+    register_views(app=app)
     register_extensions(app=app)
     configure_logger(app=app)
     return app
 
 
 def register_blueprints(app):
+    """Registers the blueprints"""
     app.register_blueprint(code.views.blueprint)
+
+
+def register_views(app):
+    """Registers the pluggable views"""
+    run_view = code.views.RunCode.as_view('run')
+    run_async_view = code.views.RunCodeAsync.as_view('run-async')
+    app.add_url_rule('/run', view_func=run_view, methods=['POST'])
+    app.add_url_rule('/run-async', view_func=run_async_view, methods=['POST'])
+    app.add_url_rule('/get-result/<string:task_id>', view_func=run_async_view, methods=['GET'])
 
 
 def register_extensions(app):

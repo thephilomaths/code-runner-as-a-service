@@ -6,6 +6,7 @@ from .celery import app
 from code_runner import code
 from code_runner import app as flask_app
 
+
 @app.task
 def run_code(data):
     data = json.loads(data)
@@ -63,10 +64,14 @@ def run_code(data):
               f'"{code_path}/{code_filename}" '\
               f'"{code_path}/{input_filename}" '
         run_cmd = f'cd runner && docker-compose run --rm java-runner {cmd}'          
-    
+
+    task_start_time = datetime.now()
     sub_process = os.popen(run_cmd)
     output: str = sub_process.read()
     os.system(f'rm {code_path}/{input_filename} {code_path}/{code_filename}')
+    task_end_time = datetime.now()
+
+    execution_log.execution_time = (task_end_time - task_start_time).seconds
 
     if output.startswith('Error'):
         execution_log.error_reason = code.models.ErrorReason.syntax_or_runtime
