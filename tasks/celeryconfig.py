@@ -22,4 +22,4 @@ broker_url = f'pyamqp://{broker_user}:{broker_password}@{broker_host}:{broker_po
 result_backend = f'db+postgresql://{result_backend_user}:{result_backend_password}@{result_backend_host}/' \
                  f'{result_backend_db}'
 result_persistent = True
-task_annotations = {'*': {'rate_limit': '12/m'}}
+task_annotations = {'*': {'rate_limit': '5/m'}}

@@ -20,7 +20,8 @@ services:
 
   code_runner: &code_runner
     build: .
-    command: ./shell_scripts/gunicorn_starter.sh
+#    command: ./shell_scripts/gunicorn_starter.sh
+    command: python wsgi.py
     stdin_open: true
     tty: true
     volumes:

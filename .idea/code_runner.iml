@@ -7,7 +7,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/env" />
     </content>
-    <orderEntry type="jdk" jdkName="Remote Python 3.8.7 Docker Compose (code_runner at [/media/the_eternal/DATA/dev/code_runner/docker-compose.yml])" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (code_runner)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
