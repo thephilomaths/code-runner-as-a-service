@@ -27,4 +27,4 @@
 
 ## Demo
 
-> I have created a public workspace on postman. You can test it from there and it can be used as a reference for API schema. [Here's the link](https://www.postman.com/kartikbehl99/workspace/code-runner-workspace/)
+> I have created a public workspace on postman. You can test it from there and it can be used as a reference for API schema. [Here's the link](https://documenter.getpostman.com/view/4843397/TW76E5ZA#4a7b6c26-5672-4df5-9ffb-a1ef253160ec)
