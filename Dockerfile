@@ -5,3 +5,6 @@ RUN pip install -r requirements.txt
 COPY . .
 EXPOSE 5000
 RUN chmod +x shell_scripts/gunicorn_starter.sh
+RUN chmod +x runner/shell_scripts/cpp_runner.sh
+RUN chmod +x runner/shell_scripts/python_runner.sh
+RUN chmod +x runner/shell_scripts/java_runner.sh
